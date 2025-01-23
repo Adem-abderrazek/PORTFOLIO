@@ -1,0 +1,25 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build directories
+/dist
+/build
+
+# Environment files
+.env
+.env.local
+
+# IDE files
+.vscode/
+
+# Log files
+*.log
+
+# TypeScript build output
+*.js
+*.tsbuildinfo
+
+# Other files
+.idea/
