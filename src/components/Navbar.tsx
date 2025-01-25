@@ -1,105 +1,122 @@
-import { Dispatch, SetStateAction, useState } from "react";
-import { Menu, ShoppingCart, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useCart } from "@/components/CartContext";
+import { MouseEventHandler, useState } from "react";
+import { Menu, Moon, Sun, X } from "lucide-react";
+import { LanguageSelector } from './LanguageSelector';
+import { useTranslation } from 'react-i18next';
 interface NavbarProps {
-  isCartOpen: boolean;
-  setIsCartOpen: Dispatch<SetStateAction<boolean>>;
+  toggleTheme: MouseEventHandler;
+  theme: string;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ isCartOpen, setIsCartOpen }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const navItems = [
-    { name: "Home", href: "#home" },
-    { name: "Menu", href: "#menu" },
-    { name: "Reservations", href: "#reservations" },
-    { name: "Contact", href: "#contact" },
-    { name: "Feedback", href: "#feedback" },
-  ];
-  const { cartItems,removeItemFromCart } = useCart();
+const portfolioData = {
+  personalInfo: {
+    name: "Jane Smith",
+  },
+};
 
+export const Navbar: React.FC<NavbarProps> = ({ toggleTheme, theme }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
+
+  const navItems = ["Home", "Projects", "Skills", "career", "Contact"];
+
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    const navHeight = 64; // height of navbar in pixels
+    if (element) {
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+    setIsMenuOpen(false);
+  };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-[white/90] backdrop-blur-md z-50 shadow-sm">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          <a
-            href="#"
-            className="font-display text-3xl text-primary text-gradient-to-r from-purple-600 to-primary"
-          >
-            Monteverde
-          </a>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href === "#home" ? "/" : item.href}
-                className="text-gray-700 hover:text-primary transition-colors"
-              >
-                {item.name}
-              </a>
-            ))}
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsCartOpen(!isCartOpen)}
-              className="relative"
-            >
-              <ShoppingCart className="h-5 w-5" />
-              <span className="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
-                {cartItems.length}
-              </span>
-            </Button>
+    <nav className="fixed w-full z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-lg">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="flex justify-between h-16">
+          {/* Logo */}
+          <div className="flex items-center">
+            <span className="text-xl font-bold">
+              {portfolioData.personalInfo.name}
+            </span>
           </div>
-
-          {/* Mobile Navigation */}
-          <div className="flex items-center gap-4 md:hidden">
-          <Button
-  variant="ghost"
-  size="icon"
-  onClick={() => setIsCartOpen(!isCartOpen)}
-  className="relative"
->
-  <ShoppingCart className="h-5 w-5" />
-  <span className="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
-    {cartItems.length}
-  </span>
-</Button>
-
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-8">
+            {navItems.map((item) => (
+              <button
+                key={item}
+                onClick={() => scrollToSection(item.toLowerCase())}
+                className={`px-3 py-2 transition-colors duration-300 ${
+                  activeSection === item.toLowerCase()
+                    ? "text-blue-600 dark:text-blue-400"
+                    : "hover:text-blue-600 dark:hover:text-blue-400"
+                }`}
+              >
+                {item}
+              </button>
+            ))}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              aria-label="Toggle theme"
             >
-              {isMenuOpen ? (
-                <X className="h-5 w-5" />
+              {theme === "light" ? (
+                <Moon className="w-5 h-5" />
               ) : (
-                <Menu className="h-5 w-5" />
+                <Sun className="w-5 h-5" />
               )}
-            </Button>
+            </button>
+          <LanguageSelector/>
+
+          </div>
+          
+
+          {/* Mobile menu button with theme toggle */}
+          <div className="md:hidden flex items-center space-x-2">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="text-current p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700"
+              aria-label="Toggle menu"
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              aria-label="Toggle theme"
+            >
+              {theme === "light" ? (
+                <Moon className="w-5 h-5" />
+              ) : (
+                <Sun className="w-5 h-5" />
+              )}
+            </button>
+          <LanguageSelector/>
+
           </div>
         </div>
-
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden py-4 border-t">
-            <div className="flex flex-col gap-4">
-              {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="text-gray-700 hover:text-primary transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.name}
-                </a>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
+
+      {isMenuOpen && (
+        <div className="md:hidden absolute w-full bg-white dark:bg-gray-800 shadow-lg">
+          <div className="px-2 pt-2 pb-3 space-y-1">
+            {navItems.map((item) => (
+              <button
+                key={item}
+                onClick={() => scrollToSection(item.toLowerCase())}
+                className="block w-full text-left px-3 py-2 text-base font-medium hover:text-blue-600 dark:hover:text-blue-400"
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </nav>
   );
 };

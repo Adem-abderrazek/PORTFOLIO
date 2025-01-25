@@ -99,44 +99,48 @@ const SkillCard = ({ skill, theme, color }) => {
 };
 
 const SkillsShowcase = () => {
-  // Get current theme from context
   const  theme  =localStorage.getItem('theme') || 'light'; 
   const { styles } = useContext(ThemeContext);
   const currentStyles = styles[theme];
 
-  // Enhanced skills data with proficiency levels
-  const skills = [
-    { 
-      category: "Frontend", 
-      color: currentStyles.accent, 
-      items: [
-        { name: "React", level: 0.9 },
-        { name: "TypeScript", level: 0.8 },
-        { name: "Tailwind CSS", level: 0.85 },
-        { name: "Next.js", level: 0.75 }
+  const skills=[
+    {
+      "category": "Frontend",
+      "color": currentStyles.accent,
+      "items": [
+        { "name": "React", "level": 0.9 },
+        { "name": "TypeScript", "level": 0.8 },
+        { "name": "Tailwind CSS", "level": 0.85 },
+        { "name": "Next.js", "level": 0.75 },
+        { "name": "Redux", "level": 0.7 },
+        { "name": "Vue.js", "level": 0.6 }
       ]
     },
-    { 
-      category: "Backend", 
-      color: currentStyles.accentSecondary, 
-      items: [
-        { name: "Node.js", level: 0.7 },
-        { name: "Python", level: 0.8 },
-        { name: "PostgreSQL", level: 0.75 },
-        { name: "AWS", level: 0.6 }
+    {
+      "category": "Backend",
+      "color": currentStyles.accentSecondary,
+      "items": [
+        { "name": "Node.js", "level": 0.7 },
+        { "name": "Python", "level": 0.8 },
+        { "name": "PostgreSQL", "level": 0.75 },
+        { "name": "Express.js", "level": 0.7 },
+        { "name": "MongoDB", "level": 0.7 },
+        { "name": "MySQL", "level": 0.7 },
+        { "name": "ORM(prisma,sequelize)", "level": 0.7 },
       ]
     },
-    { 
-      category: "Tools", 
-      color: currentStyles.tertiary, 
-      items: [
-        { name: "Git", level: 0.9 },
-        { name: "Docker", level: 0.7 },
-        { name: "Figma", level: 0.8 },
-        { name: "Jest", level: 0.6 }
+    {
+      "category": "Tools",
+      "color": currentStyles.tertiary,
+      "items": [
+        { "name": "Git", "level": 0.9 },
+        { "name": "Figma", "level": 0.8 },
+        { "name": "Postman", "level": 0.8 },
+        { "name": "VS Code", "level": 0.95 }
       ]
     }
-  ];
+  ]
+  
 
   const [activeCategory, setActiveCategory] = useState(null);
 

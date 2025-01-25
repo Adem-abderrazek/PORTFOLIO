@@ -1,0 +1,11 @@
+{
+  "aboutMe": {
+    "contactButton": "Contactez-moi",
+    "downloadCVButton": "Télécharger le CV"
+  },
+  "personalInfo": {
+    "name": "Jane Smith",
+    "title": "Développeur Full Stack & Designer UI",
+    "bio": "Avec 8 ans d'expérience dans la création de sites web conviviaux et visuellement époustouflants. Je me spécialise en React, TypeScript et en conception UI/UX, transformant des problèmes complexes en solutions élégantes."
+  }
+}

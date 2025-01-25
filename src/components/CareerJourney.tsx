@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BookOpen, Briefcase, Award, ChevronRight, ChevronLeft, Star } from 'lucide-react';
-
+const theme = localStorage.getItem('theme')
 const CareerJourney = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -10,13 +10,12 @@ const CareerJourney = () => {
       type: 'education',
       title: 'Computer Science Degree',
       year: '2018-2022',
-      institution: 'University Name',
+      institution: 'University École supérieure des sciences et de la technologie',
       description: 'Specialized in Web Development',
       icon: BookOpen,
       achievements: [
         'Dean\'s List 2020',
         'Best Project Award',
-        'Programming Competition Winner'
       ],
       color: 'bg-blue-500'
     },
@@ -26,7 +25,7 @@ const CareerJourney = () => {
       title: 'Junior Developer',
       year: '2022-2023',
       institution: 'Tech Corp',
-      description: 'Frontend Development Focus',
+      description: 'Frontend Development  and backEnd Development',
       icon: Briefcase,
       achievements: [
         'Completed 5 Major Projects',
@@ -41,13 +40,12 @@ const CareerJourney = () => {
       title: 'Senior Developer',
       year: '2023-Present',
       institution: 'Innovation Labs',
-      description: 'Full Stack Development',
+      description: 'Full Stack Development and UI/UX Design',
       icon: Award,
       achievements: [
         'System Architecture Design',
-        'Team Lead Role',
-        'Innovation Award'
-      ],
+        'Scrum Master',
+        'Project Management'],
       color: 'bg-purple-500'
     }
   ];
@@ -67,8 +65,7 @@ const CareerJourney = () => {
   const CurrentIcon = milestones[currentIndex].icon;
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white rounded-xl shadow-lg">
-      {/* Header with navigation */}
+    <div className="max-w-3xl mx-auto p-6 bg-{theme==dark?[#121212]:[#fff]} rounded-xl shadow-lg">
       <div className="flex justify-between items-center mb-8">
         <button
           onClick={handlePrev}
