@@ -11,7 +11,7 @@ function AboutMe() {
     <div className="relative group">
         <div className="w-64 h-64 md:w-70 md:h-70 rounded-full mx-auto overflow-hidden transform group-hover:scale-105 transition-transform duration-300 shadow-2xl">
           <img
-            src="../public/profile.jpg"
+            src="https://res.cloudinary.com/dc0gmzuud/image/upload/v1737767730/profile_nd5xv8.jpg"
             alt="Profile"
             className="object-cover"
           />
